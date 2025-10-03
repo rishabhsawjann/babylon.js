@@ -1,0 +1,32 @@
+<html>
+    <head>
+        <title>Fetch Example</title>
+    </head>
+    <body>
+        <h1>Random User Info</h1>
+        <button id="loadUser">Load User</button>
+        <div id="userInfo"></div>
+
+        <script>
+            const button = document.getElementById("loadUser");
+            const userInfoDiv = document.getElementById("userInfo");
+          button.addEventListener("click",()=>{//
+    
+            fetch("https://randomuser.me/api/")// Fetching random user data from an API
+            .then(response => response.json())
+            .then(data => {
+                const user = data.results[0];
+                userInfoDiv.innerHTML = `
+                    <p>Name: ${user.name.first} ${user.name.last}</p>
+                    <p>Email: ${user.email}</p>
+                    <img src="${user.picture.medium}" alt="User Picture"/>
+                `;
+            })
+            .catch(error => {
+                userInfoDiv.innerHTML = `<p>Error loading user data</p>`;
+                console.error('Error fetching user data:', error);
+            });
+          });
+        </script>
+    </body>
+</html>
